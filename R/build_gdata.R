@@ -299,7 +299,6 @@ build_gdata <- function(
   speH = NULL,
   sensymp = NULL,
   spesymp = NULL) {
-
   if(! disease %in% c("Covid", "Influenza"))
     stop(
     "Disease parameter must be Covid or Influenza."
@@ -307,408 +306,350 @@ build_gdata <- function(
 
   if(disease == "Covid"){
     ##### Infection
-  if(!is.null(n_ctcH_PSA)) n_ctcH_PSA = 2
-  if(!is.null(t_ctcH_PSA)) t_ctcH_PSA = 10 / 60 / 24
-  if(!is.null(n_ctcP_PSA)) n_ctcP_PSA = 0
-  if(!is.null(t_ctcP_PSA)) t_ctcP_PSA = 5 / 60 / 24
-  if(!is.null(n_ctcH_PW)) n_ctcH_PW = 4
-  if(!is.null(t_ctcH_PW)) t_ctcH_PW = 15 / 60 / 24
-  if(!is.null(n_ctcP_PW)) n_ctcP_PW = 4
-  if(!is.null(t_ctcP_PW)) t_ctcP_PW = 30 / 60 / 24
-  if(!is.null(n_ctcH_H)) n_ctcH_H = 5
-  if(!is.null(t_ctcH_H)) t_ctcH_H = 3 / 60 / 24
-  if(!is.null(t_ctcV_PW)) t_ctcV_PW = 20 / 60 / 24
-  if(!is.null(I)) I = 185 / 100000
-  if(!is.null(d)) d = 10
-  if(!is.null(R0)) R0 = 1.29
-  if(!is.null(tw)) tw = 35
+  if(is.null(n_ctcH_PSA)) n_ctcH_PSA = 2
+  if(is.null(t_ctcH_PSA)) t_ctcH_PSA = 10 / 60 / 24
+  if(is.null(n_ctcP_PSA)) n_ctcP_PSA = 0
+  if(is.null(t_ctcP_PSA)) t_ctcP_PSA = 5 / 60 / 24
+  if(is.null(n_ctcH_PW)) n_ctcH_PW = 4
+  if(is.null(t_ctcH_PW)) t_ctcH_PW = 15 / 60 / 24
+  if(is.null(n_ctcP_PW)) n_ctcP_PW = 4
+  if(is.null(t_ctcP_PW)) t_ctcP_PW = 30 / 60 / 24
+  if(is.null(n_ctcH_H)) n_ctcH_H = 5
+  if(is.null(t_ctcH_H)) t_ctcH_H = 3 / 60 / 24
+  if(is.null(t_ctcV_PW)) t_ctcV_PW = 20 / 60 / 24
+  if(is.null(I)) I = 185 / 100000
+  if(is.null(d)) d = 10
+  if(is.null(R0)) R0 = 1.29
+  if(is.null(tw)) tw = 35
   # https://www.gouvernement.fr/info-coronavirus/carte-et-donnees
-  if(!is.null(tSA)) tSA  = 2 / 24
+  if(is.null(tSA)) tSA  = 2 / 24
   # average duration before full admission (in screening area for clinical exam administrative procedure etc)
-  if(!is.null(tIC)) tIC  = 15
+  if(is.null(tIC)) tIC  = 15
   # average duration of stay in intensive care
-  if(!is.null(tSL)) tSL  = 14
+  if(is.null(tSL)) tSL  = 14
   # average duration of sick leave
-  if(!is.null(tESL)) tESL = 28
+  if(is.null(tESL)) tESL = 28
   # average duration of extended sick leave
-  if(!is.null(tE)) tE  = 5
+  if(is.null(tE)) tE  = 5
   # duration epidemiological state E
-  if(!is.null(tEA)) tEA = 2
+  if(is.null(tEA)) tEA = 2
   # duration epidemiological state EA
-  if(!is.null(tES)) tES = 2
+  if(is.null(tES)) tES = 2
   # duration epidemiological state ES
-  if(!is.null(tIA)) tIA = 7
+  if(is.null(tIA)) tIA = 7
   # duration epidemiological state IA
-  if(!is.null(tIM)) tIM = 8
+  if(is.null(tIM)) tIM = 8
   # duration epidemiological state IM
-  if(!is.null(tIS)) tIS = 9
+  if(is.null(tIS)) tIS = 9
   # duration epidemiological state IS
-  if(!is.null(tLI)) tLI = 60
+  if(is.null(tLI)) tLI = 60
   # duration of partial immunity before return to non immune status
-  if(!is.null(tHI)) tHI = 150
+  if(is.null(tHI)) tHI = 150
   # duration of full immunity before return to partial immune status
   # patient protection
-  if(!is.null(epsPPSA)) epsPPSA = 0.1
-  if(!is.null(epsHPSA)) epsHPSA = 0.1
-  if(!is.null(epsHPW)) epsHPW = 0.1
-  if(!is.null(epsPPW)) epsPPW = 0.1
-  if(!is.null(epsVPW)) epsVPW = 0.1
+  if(is.null(epsPPSA)) epsPPSA = 0.1
+  if(is.null(epsHPSA)) epsHPSA = 0.1
+  if(is.null(epsHPW)) epsHPW = 0.1
+  if(is.null(epsPPW)) epsPPW = 0.1
+  if(is.null(epsVPW)) epsVPW = 0.1
   # healthcare workers protection
-  if(!is.null(epsPHSA)) epsPHSA = 0.1
+  if(is.null(epsPHSA)) epsPHSA = 0.1
   #from patient in SA
-  if(!is.null(epsPHW)) epsPHW = 0.1
+  if(is.null(epsPHW)) epsPHW = 0.1
   #from patient in W
-  if(!is.null(epsHHW)) epsHHW = 0.1
+  if(is.null(epsHHW)) epsHHW = 0.1
   #from HW in W
   ## Test in ward
-  if(!is.null(ttestSA)) ttestSA = 2 / 24
+  if(is.null(ttestSA)) ttestSA = 2 / 24
   # test duration in screening area
-  if(!is.null(ttestPW)) ttestPW = 2 / 24
+  if(is.null(ttestPW)) ttestPW = 2 / 24
   # test duration in ward for screening patients
-  if(!is.null(ttestHW)) ttestHW = 2 / 24
+  if(is.null(ttestHW)) ttestHW = 2 / 24
   # test duration in ward for screening professionals
-  if(!is.null(ttestsymp)) ttestsymp = 2 / 24
+  if(is.null(ttestsymp)) ttestsymp = 2 / 24
   # test duration for symptomatic
 
-  if(!is.null(tbtwtestP)) tbtwtestP = 14
+  if(is.null(tbtwtestP)) tbtwtestP = 14
   # duration between two tests for patient
-  if(!is.null(tbtwtestH)) tbtwtestH = 30
+  if(is.null(tbtwtestH)) tbtwtestH = 30
   # duration between two tests for HCWS
 
-  if(!is.null(tbeftestPsymp)) tbeftestPsymp = 2 / 24
+  if(is.null(tbeftestPsymp)) tbeftestPsymp = 2 / 24
   # duration before test of symp patient
-  if(!is.null(tbeftestHsymp)) tbeftestHsymp = 1
+  if(is.null(tbeftestHsymp)) tbeftestHsymp = 1
   # duration before test of symp HCWS
 
-  if(!is.null(psympNI)) psympNI = 0.5
+  if(is.null(psympNI)) psympNI = 0.5
   # probability to be symptomatic when non immune
-  if(!is.null(psympLI)) psympLI = 0.2
+  if(is.null(psympLI)) psympLI = 0.2
   # probability to be symptomatic when partially immune
-  if(!is.null(psympHI)) psympHI = 0.1
+  if(is.null(psympHI)) psympHI = 0.1
   # probability to be symptomatic when fully immune
 
-  if(!is.null(psevNI)) psevNI = 0.5
+  if(is.null(psevNI)) psevNI = 0.5
   # probability to develop severe symptoms when non immune
-  if(!is.null(psevLI)) psevLI = 0.3
+  if(is.null(psevLI)) psevLI = 0.3
   # probability to develop severe symptoms when partially immune
-  if(!is.null(psevHI)) psevHI = 0.1
+  if(is.null(psevHI)) psevHI = 0.1
   # probability to develop severe symptoms when fully immune
 
-  if(!is.null(pISO)) pISO = 1
+  if(is.null(pISO)) pISO = 1
   # contact restriction in case of positive test
 
-  if(!is.null(pSL)) pSL = 0.3
+  if(is.null(pSL)) pSL = 0.3
   # probability to take sick leave
-  if(!is.null(pESL)) pESL = 1
+  if(is.null(pESL)) pESL = 1
   # probability to take extended sick leave
-  if(!is.null(pSLT)) pSLT = 0.01
+  if(is.null(pSLT)) pSLT = 0.01
   # probability to take EL/ESL after positive test
 
-  if(!is.null(pIC)) pIC = 0.3
+  if(is.null(pIC)) pIC = 0.3
   # probability to be transfer in intensive care
-  if(!is.null(pdieIC)) pdieIC = 0.005
+  if(is.null(pdieIC)) pdieIC = 0.005
   # probability to die in intensive care
 
   ###################################
-  if(!is.null(pLI)) pLI = 0.20
+  if(is.null(pLI)) pLI = 0.20
   # probability to be PI at the admission (proportion of PI in the population)
-  if(!is.null(pHI)) pHI = 0.5
+  if(is.null(pHI)) pHI = 0.5
   # probability to be FI at the admission (proportion of FI in the population)
-  if(!is.null(hNI2LI)) hNI2LI = 1 / 30
+  if(is.null(hNI2LI)) hNI2LI = 1 / 30
   # daily probability to become partially immune
-  if(!is.null(hLI2HI)) hLI2HI = 1 / 60
+  if(is.null(hLI2HI)) hLI2HI = 1 / 60
   # daily probability to become fully immune
 
-  if(!is.null(rinfLI)) rinfLI = 0.7
+  if(is.null(rinfLI)) rinfLI = 0.7
   # partial immunity efficiency % FIX ME better explain that this is the ratio of reduction of probability to be infected compared to non immune
-  if(!is.null(rinfHI)) rinfHI = 0.5
+  if(is.null(rinfHI)) rinfHI = 0.5
   # partial immunity efficiency % FIX ME better explain that this is the ratio of reduction of probability to be infected compared to non immune
 
-  if(!is.null(rsymp)) rsymp = 1
+  if(is.null(rsymp)) rsymp = 1
   # Ratio adjusting probability of symptoms for patients compared to general population (professionals)
-  if(!is.null(rsev)) rsev = 1
+  if(is.null(rsev)) rsev = 1
   # Ratio adjusting probability of severity if symptoms for patients compared to general population (professionals)
 
-  if(!is.null(rEA)) rEA = 0.35
+  if(is.null(rEA)) rEA = 0.35
   # Ratio  of excretion for individuals in epidemiological stage EA (exposed - contagious pre-asymptomatic)
-  if(!is.null(rES)) rES = 1
+  if(is.null(rES)) rES = 1
   # Ratio of excretion for individuals in epidemiological stage ES (exposed - contagious pre-symptomatic)
-  if(!is.null(rIA)) rIA = 0.35
+  if(is.null(rIA)) rIA = 0.35
   # Ratio of excretion for individuals in epidemiological stage IA (infectious asymptomatic)
-  if(!is.null(rIM)) rIM = 1
+  if(is.null(rIM)) rIM = 1
   # Ratio of excretion for individuals in epidemiological stage IM (infectious with mild symptoms)
-  if(!is.null(rIS)) rIS = 1
+  if(is.null(rIS)) rIS = 1
   # Ratio of excretion for individuals in epidemiological stage IS (infectious with severe symptoms)
 
 
-  if(!is.null(ptestPSAsymp)) ptestPSAsymp = 1
+  if(is.null(ptestPSAsymp)) ptestPSAsymp = 1
   # probability to test symptomatic patients in the screening area
-  if(!is.null(ptestPSANI)) ptestPSANI = .75
+  if(is.null(ptestPSANI)) ptestPSANI = .75
   # probability to test NI patients in the screening area
-  if(!is.null(ptestPSALI)) ptestPSALI = 0.50
+  if(is.null(ptestPSALI)) ptestPSALI = 0.50
   # probability to test PI patients in the screening area
-  if(!is.null(ptestPSAHI)) ptestPSAHI = 0.1
+  if(is.null(ptestPSAHI)) ptestPSAHI = 0.1
   # probability to test FI patients in the screening area
 
-  if(!is.null(ptestPWsymp)) ptestPWsymp = 0.95
+  if(is.null(ptestPWsymp)) ptestPWsymp = 0.95
   # probability to test symptomatic patients in the ward
-  if(!is.null(ptestPWNI)) ptestPWNI = 0.75
+  if(is.null(ptestPWNI)) ptestPWNI = 0.75
   # probability to test NI patients in the ward
-  if(!is.null(ptestPWLI)) ptestPWLI = 0.50
+  if(is.null(ptestPWLI)) ptestPWLI = 0.50
   # probability to test PI patients in the ward
-  if(!is.null(ptestPWHI)) ptestPWHI = 0.10
+  if(is.null(ptestPWHI)) ptestPWHI = 0.10
   # probability to test FI patients in the ward
 
-  if(!is.null(ptestHsymp)) ptestHsymp = 0.85
+  if(is.null(ptestHsymp)) ptestHsymp = 0.85
   # probability to test symptomatic HCWS in the ward
-  if(!is.null(ptestHNI)) ptestHNI = 0.75
+  if(is.null(ptestHNI)) ptestHNI = 0.75
   # proportion of non immune professionals (healthcare workers) tested during screening testing
-  if(!is.null(ptestHLI)) ptestHLI = 0.50
+  if(is.null(ptestHLI)) ptestHLI = 0.50
   # probability to test PI HCWS
-  if(!is.null(ptestHHI)) ptestHHI = 0.20
+  if(is.null(ptestHHI)) ptestHHI = 0.20
   # probability to test FI HCWS
 
-  if(!is.null(senSA)) senSA = 0.85
-  if(!is.null(speSA)) speSA = 0.95
-  if(!is.null(senW)) senW = 0.85
-  if(!is.null(speW)) speW = 0.95
-  if(!is.null(senH)) senH = 0.85
-  if(!is.null(speH)) speH = 0.95
-  if(!is.null(sensymp)) sensymp = 0.85
-  if(!is.null(spesymp)) spesymp = 0.95}
+  if(is.null(senSA)) senSA = 0.85
+  if(is.null(speSA)) speSA = 0.95
+  if(is.null(senW)) senW = 0.85
+  if(is.null(speW)) speW = 0.95
+  if(is.null(senH)) senH = 0.85
+  if(is.null(speH)) speH = 0.95
+  if(is.null(sensymp)) sensymp = 0.85
+  if(is.null(spesymp)) spesymp = 0.95
+  }
 
 
-  if(disease == "Influenza"){##### Infection
-    n_ctcH_PSA = 2
-    t_ctcH_PSA = 10 / 60 / 24
-    n_ctcP_PSA = 0
-    t_ctcP_PSA = 5 / 60 / 24
-    n_ctcH_PW = 4
-    t_ctcH_PW = 15 / 60 / 24
-    n_ctcP_PW = 4
-    t_ctcP_PW = 30 / 60 / 24
-    n_ctcH_H = 5
-    t_ctcH_H = 3 / 60 / 24
-    t_ctcV_PW = 20 / 60 / 24
-    I = 185 / 100000
-    d = 10
-    R0 = 1.29
-    tw = 35
+  if(disease == "Influenza"){
+    ##### Infection
+    if(is.null(n_ctcH_PSA)) n_ctcH_PSA = 2
+    if(is.null(t_ctcH_PSA)) t_ctcH_PSA = 10 / 60 / 24
+    if(is.null(n_ctcP_PSA)) n_ctcP_PSA = 0
+    if(is.null(t_ctcP_PSA)) t_ctcP_PSA = 5 / 60 / 24
+    if(is.null(n_ctcH_PW)) n_ctcH_PW = 4
+    if(is.null(t_ctcH_PW)) t_ctcH_PW = 15 / 60 / 24
+    if(is.null(n_ctcP_PW)) n_ctcP_PW = 4
+    if(is.null(t_ctcP_PW)) t_ctcP_PW = 30 / 60 / 24
+    if(is.null(n_ctcH_H)) n_ctcH_H = 5
+    if(is.null(t_ctcH_H)) t_ctcH_H = 3 / 60 / 24
+    if(is.null(t_ctcV_PW)) t_ctcV_PW = 20 / 60 / 24
+    if(is.null(I)) I = 185 / 100000
+    if(is.null(d)) d = 10
+    if(is.null(R0)) R0 = 1.29
+    if(is.null(tw)) tw = 35
     # https://www.gouvernement.fr/info-coronavirus/carte-et-donnees
-    tSA  = 2 / 24
+    if(is.null(tSA)) tSA  = 2 / 24
     # average duration before full admission (in screening area for clinical exam administrative procedure etc)
-    tIC  = 15
+    if(is.null(tIC)) tIC  = 15
     # average duration of stay in intensive care
-    tSL  = 14
+    if(is.null(tSL)) tSL  = 14
     # average duration of sick leave
-    tESL = 28
+    if(is.null(tESL)) tESL = 28
     # average duration of extended sick leave
-    tE  = 5
+    if(is.null(tE)) tE  = 5
     # duration epidemiological state E
-    tEA = 2
+    if(is.null(tEA)) tEA = 2
     # duration epidemiological state EA
-    tES = 2
+    if(is.null(tES)) tES = 2
     # duration epidemiological state ES
-    tIA = 7
+    if(is.null(tIA)) tIA = 7
     # duration epidemiological state IA
-    tIM = 8
+    if(is.null(tIM)) tIM = 8
     # duration epidemiological state IM
-    tIS = 9
+    if(is.null(tIS)) tIS = 9
     # duration epidemiological state IS
-    tLI = 60
+    if(is.null(tLI)) tLI = 60
     # duration of partial immunity before return to non immune status
-    tHI = 150
+    if(is.null(tHI)) tHI = 150
     # duration of full immunity before return to partial immune status
     # patient protection
-    epsPPSA = 0.1
-    epsHPSA = 0.1
-    epsHPW = 0.1
-    epsPPW = 0.1
-    epsVPW = 0.1
+    if(is.null(epsPPSA)) epsPPSA = 0.1
+    if(is.null(epsHPSA)) epsHPSA = 0.1
+    if(is.null(epsHPW)) epsHPW = 0.1
+    if(is.null(epsPPW)) epsPPW = 0.1
+    if(is.null(epsVPW)) epsVPW = 0.1
     # healthcare workers protection
-    epsPHSA = 0.1
+    if(is.null(epsPHSA)) epsPHSA = 0.1
     #from patient in SA
-    epsPHW = 0.1
+    if(is.null(epsPHW)) epsPHW = 0.1
     #from patient in W
-    epsHHW = 0.1
+    if(is.null(epsHHW)) epsHHW = 0.1
     #from HW in W
     ## Test in ward
-    ttestSA = 2 / 24
+    if(is.null(ttestSA)) ttestSA = 2 / 24
     # test duration in screening area
-    ttestPW = 2 / 24
+    if(is.null(ttestPW)) ttestPW = 2 / 24
     # test duration in ward for screening patients
-    ttestHW = 2 / 24
-    # test duration in ward f##### Infection
-    if(!is.null(n_ctcH_PSA)) n_ctcH_PSA = 2
-    if(!is.null(t_ctcH_PSA)) t_ctcH_PSA = 10 / 60 / 24
-    if(!is.null(n_ctcP_PSA)) n_ctcP_PSA = 0
-    if(!is.null(t_ctcP_PSA)) t_ctcP_PSA = 5 / 60 / 24
-    if(!is.null(n_ctcH_PW)) n_ctcH_PW = 4
-    if(!is.null(t_ctcH_PW)) t_ctcH_PW = 15 / 60 / 24
-    if(!is.null(n_ctcP_PW)) n_ctcP_PW = 4
-    if(!is.null(t_ctcP_PW)) t_ctcP_PW = 30 / 60 / 24
-    if(!is.null(n_ctcH_H)) n_ctcH_H = 5
-    if(!is.null(t_ctcH_H)) t_ctcH_H = 3 / 60 / 24
-    if(!is.null(t_ctcV_PW)) t_ctcV_PW = 20 / 60 / 24
-    if(!is.null(I)) I = 185 / 100000
-    if(!is.null(d)) d = 10
-    if(!is.null(R0)) R0 = 1.29
-    if(!is.null(tw)) tw = 35
-    # https://www.gouvernement.fr/info-coronavirus/carte-et-donnees
-    if(!is.null(tSA)) tSA  = 2 / 24
-    # average duration before full admission (in screening area for clinical exam administrative procedure etc)
-    if(!is.null(tIC)) tIC  = 15
-    # average duration of stay in intensive care
-    if(!is.null(tSL)) tSL  = 14
-    # average duration of sick leave
-    if(!is.null(tESL)) tESL = 28
-    # average duration of extended sick leave
-    if(!is.null(tE)) tE  = 5
-    # duration epidemiological state E
-    if(!is.null(tEA)) tEA = 2
-    # duration epidemiological state EA
-    if(!is.null(tES)) tES = 2
-    # duration epidemiological state ES
-    if(!is.null(tIA)) tIA = 7
-    # duration epidemiological state IA
-    if(!is.null(tIM)) tIM = 8
-    # duration epidemiological state IM
-    if(!is.null(tIS)) tIS = 9
-    # duration epidemiological state IS
-    if(!is.null(tLI)) tLI = 60
-    # duration of partial immunity before return to non immune status
-    if(!is.null(tHI)) tHI = 150
-    # duration of full immunity before return to partial immune status
-    # patient protection
-    if(!is.null(epsPPSA)) epsPPSA = 0.1
-    if(!is.null(epsHPSA)) epsHPSA = 0.1
-    if(!is.null(epsHPW)) epsHPW = 0.1
-    if(!is.null(epsPPW)) epsPPW = 0.1
-    if(!is.null(epsVPW)) epsVPW = 0.1
-    # healthcare workers protection
-    if(!is.null(epsPHSA)) epsPHSA = 0.1
-    #from patient in SA
-    if(!is.null(epsPHW)) epsPHW = 0.1
-    #from patient in W
-    if(!is.null(epsHHW)) epsHHW = 0.1
-    #from HW in W
-    ## Test in ward
-    if(!is.null(ttestSA)) ttestSA = 2 / 24
-    # test duration in screening area
-    if(!is.null(ttestPW)) ttestPW = 2 / 24
-    # test duration in ward for screening patients
-    if(!is.null(ttestHW)) ttestHW = 2 / 24
+    if(is.null(ttestHW)) ttestHW = 2 / 24
     # test duration in ward for screening professionals
-    if(!is.null(ttestsymp)) ttestsymp = 2 / 24
+    if(is.null(ttestsymp)) ttestsymp = 2 / 24
     # test duration for symptomatic
 
-    if(!is.null(tbtwtestP)) tbtwtestP = 14
+    if(is.null(tbtwtestP)) tbtwtestP = 14
     # duration between two tests for patient
-    if(!is.null(tbtwtestH)) tbtwtestH = 30
+    if(is.null(tbtwtestH)) tbtwtestH = 30
     # duration between two tests for HCWS
 
-    if(!is.null(tbeftestPsymp)) tbeftestPsymp = 2 / 24
+    if(is.null(tbeftestPsymp)) tbeftestPsymp = 2 / 24
     # duration before test of symp patient
-    if(!is.null(tbeftestHsymp)) tbeftestHsymp = 1
+    if(is.null(tbeftestHsymp)) tbeftestHsymp = 1
     # duration before test of symp HCWS
 
-    if(!is.null(psympNI)) psympNI = 0.8
+    if(is.null(psympNI)) psympNI = 0.9
     # probability to be symptomatic when non immune
-    if(!is.null(psympLI)) psympLI = 0.7
+    if(is.null(psympLI)) psympLI = 0.8
     # probability to be symptomatic when partially immune
-    if(!is.null(psympHI)) psympHI = 0.5
+    if(is.null(psympHI)) psympHI = 0.7
     # probability to be symptomatic when fully immune
 
-    if(!is.null(psevNI)) psevNI = 0.9
+    if(is.null(psevNI)) psevNI = 0.6
     # probability to develop severe symptoms when non immune
-    if(!is.null(psevLI)) psevLI = 0.5
+    if(is.null(psevLI)) psevLI = 0.5
     # probability to develop severe symptoms when partially immune
-    if(!is.null(psevHI)) psevHI = 0.3
+    if(is.null(psevHI)) psevHI = 0.4
     # probability to develop severe symptoms when fully immune
 
-    if(!is.null(pISO)) pISO = 1
+    if(is.null(pISO)) pISO = 1
     # contact restriction in case of positive test
 
-    if(!is.null(pSL)) pSL = 0.3
+    if(is.null(pSL)) pSL = 0.3
     # probability to take sick leave
-    if(!is.null(pESL)) pESL = 1
+    if(is.null(pESL)) pESL = 1
     # probability to take extended sick leave
-    if(!is.null(pSLT)) pSLT = 0.01
+    if(is.null(pSLT)) pSLT = 0.01
     # probability to take EL/ESL after positive test
 
-    if(!is.null(pIC)) pIC = 0.3
+    if(is.null(pIC)) pIC = 0.3
     # probability to be transfer in intensive care
-    if(!is.null(pdieIC)) pdieIC = 0.005
+    if(is.null(pdieIC)) pdieIC = 0.005
     # probability to die in intensive care
 
     ###################################
-    if(!is.null(pLI)) pLI = 0.20
+    if(is.null(pLI)) pLI = 0.20
     # probability to be PI at the admission (proportion of PI in the population)
-    if(!is.null(pHI)) pHI = 0.5
+    if(is.null(pHI)) pHI = 0.5
     # probability to be FI at the admission (proportion of FI in the population)
-    if(!is.null(hNI2LI)) hNI2LI = 1 / 30
+    if(is.null(hNI2LI)) hNI2LI = 1 / 30
     # daily probability to become partially immune
-    if(!is.null(hLI2HI)) hLI2HI = 1 / 60
+    if(is.null(hLI2HI)) hLI2HI = 1 / 60
     # daily probability to become fully immune
 
-    if(!is.null(rinfLI)) rinfLI = 0.7
+    if(is.null(rinfLI)) rinfLI = 0.7
     # partial immunity efficiency % FIX ME better explain that this is the ratio of reduction of probability to be infected compared to non immune
-    if(!is.null(rinfHI)) rinfHI = 0.5
+    if(is.null(rinfHI)) rinfHI = 0.5
     # partial immunity efficiency % FIX ME better explain that this is the ratio of reduction of probability to be infected compared to non immune
 
-    if(!is.null(rsymp)) rsymp = 1
+    if(is.null(rsymp)) rsymp = 1
     # Ratio adjusting probability of symptoms for patients compared to general population (professionals)
-    if(!is.null(rsev)) rsev = 1
+    if(is.null(rsev)) rsev = 1
     # Ratio adjusting probability of severity if symptoms for patients compared to general population (professionals)
 
-    if(!is.null(rEA)) rEA = 0.35
+    if(is.null(rEA)) rEA = 0.35
     # Ratio  of excretion for individuals in epidemiological stage EA (exposed - contagious pre-asymptomatic)
-    if(!is.null(rES)) rES = 1
+    if(is.null(rES)) rES = 1
     # Ratio of excretion for individuals in epidemiological stage ES (exposed - contagious pre-symptomatic)
-    if(!is.null(rIA)) rIA = 0.35
+    if(is.null(rIA)) rIA = 0.35
     # Ratio of excretion for individuals in epidemiological stage IA (infectious asymptomatic)
-    if(!is.null(rIM)) rIM = 1
+    if(is.null(rIM)) rIM = 1
     # Ratio of excretion for individuals in epidemiological stage IM (infectious with mild symptoms)
-    if(!is.null(rIS)) rIS = 1
+    if(is.null(rIS)) rIS = 1
     # Ratio of excretion for individuals in epidemiological stage IS (infectious with severe symptoms)
 
 
-    if(!is.null(ptestPSAsymp)) ptestPSAsymp = 1
+    if(is.null(ptestPSAsymp)) ptestPSAsymp = 1
     # probability to test symptomatic patients in the screening area
-    if(!is.null(ptestPSANI)) ptestPSANI = .75
+    if(is.null(ptestPSANI)) ptestPSANI = .75
     # probability to test NI patients in the screening area
-    if(!is.null(ptestPSALI)) ptestPSALI = 0.50
+    if(is.null(ptestPSALI)) ptestPSALI = 0.50
     # probability to test PI patients in the screening area
-    if(!is.null(ptestPSAHI)) ptestPSAHI = 0.1
+    if(is.null(ptestPSAHI)) ptestPSAHI = 0.1
     # probability to test FI patients in the screening area
 
-    if(!is.null(ptestPWsymp)) ptestPWsymp = 0.95
+    if(is.null(ptestPWsymp)) ptestPWsymp = 0.95
     # probability to test symptomatic patients in the ward
-    if(!is.null(ptestPWNI)) ptestPWNI = 0.75
+    if(is.null(ptestPWNI)) ptestPWNI = 0.75
     # probability to test NI patients in the ward
-    if(!is.null(ptestPWLI)) ptestPWLI = 0.50
+    if(is.null(ptestPWLI)) ptestPWLI = 0.50
     # probability to test PI patients in the ward
-    if(!is.null(ptestPWHI)) ptestPWHI = 0.10
+    if(is.null(ptestPWHI)) ptestPWHI = 0.10
     # probability to test FI patients in the ward
 
-    if(!is.null(ptestHsymp)) ptestHsymp = 0.85
+    if(is.null(ptestHsymp)) ptestHsymp = 0.85
     # probability to test symptomatic HCWS in the ward
-    if(!is.null(ptestHNI)) ptestHNI = 0.75
+    if(is.null(ptestHNI)) ptestHNI = 0.75
     # proportion of non immune professionals (healthcare workers) tested during screening testing
-    if(!is.null(ptestHLI)) ptestHLI = 0.50
+    if(is.null(ptestHLI)) ptestHLI = 0.50
     # probability to test PI HCWS
-    if(!is.null(ptestHHI)) ptestHHI = 0.20
+    if(is.null(ptestHHI)) ptestHHI = 0.20
     # probability to test FI HCWS
 
-    if(!is.null(senSA)) senSA = 0.85
-    if(!is.null(speSA)) speSA = 0.95
-    if(!is.null(senW)) senW = 0.85
-    if(!is.null(speW)) speW = 0.95
-    if(!is.null(senH)) senH = 0.85
-    if(!is.null(speH)) speH = 0.95
-    if(!is.null(sensymp)) sensymp = 0.85
-    if(!is.null(spesymp)) spesymp = 0.95}
-
+    if(is.null(senSA)) senSA = 0.85
+    if(is.null(speSA)) speSA = 0.95
+    if(is.null(senW)) senW = 0.85
+    if(is.null(speW)) speW = 0.95
+    if(is.null(senH)) senH = 0.85
+    if(is.null(speH)) speH = 0.95
+    if(is.null(sensymp)) sensymp = 0.85
+    if(is.null(spesymp)) spesymp = 0.95
+  }
 
   ### Checks
   ## Duration must be positive number
