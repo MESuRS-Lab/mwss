@@ -612,18 +612,18 @@ build_gdata <- function(
     if(!is.null(tbeftestHsymp)) tbeftestHsymp = 1
     # duration before test of symp HCWS
 
-    if(!is.null(psympNI)) psympNI = 0.5
+    if(!is.null(psympNI)) psympNI = 0.8
     # probability to be symptomatic when non immune
-    if(!is.null(psympLI)) psympLI = 0.2
+    if(!is.null(psympLI)) psympLI = 0.7
     # probability to be symptomatic when partially immune
-    if(!is.null(psympHI)) psympHI = 0.1
+    if(!is.null(psympHI)) psympHI = 0.5
     # probability to be symptomatic when fully immune
 
-    if(!is.null(psevNI)) psevNI = 0.5
+    if(!is.null(psevNI)) psevNI = 0.9
     # probability to develop severe symptoms when non immune
-    if(!is.null(psevLI)) psevLI = 0.3
+    if(!is.null(psevLI)) psevLI = 0.5
     # probability to develop severe symptoms when partially immune
-    if(!is.null(psevHI)) psevHI = 0.1
+    if(!is.null(psevHI)) psevHI = 0.3
     # probability to develop severe symptoms when fully immune
 
     if(!is.null(pISO)) pISO = 1
