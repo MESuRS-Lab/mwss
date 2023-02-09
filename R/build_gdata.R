@@ -459,7 +459,7 @@ build_gdata <- function(
   if(!is.null(ptestPWHI)) ptestPWHI = 0.10
   # probability to test FI patients in the ward
 
-  if(!is.null(ptestHsymp))  = 0.85
+  if(!is.null(ptestHsymp)) ptestHsymp = 0.85
   # probability to test symptomatic HCWS in the ward
   if(!is.null(ptestHNI)) ptestHNI = 0.75
   # proportion of non immune professionals (healthcare workers) tested during screening testing
@@ -691,7 +691,7 @@ build_gdata <- function(
     if(!is.null(ptestPWHI)) ptestPWHI = 0.10
     # probability to test FI patients in the ward
 
-    if(!is.null(ptestHsymp))  = 0.85
+    if(!is.null(ptestHsymp)) ptestHsymp = 0.85
     # probability to test symptomatic HCWS in the ward
     if(!is.null(ptestHNI)) ptestHNI = 0.75
     # proportion of non immune professionals (healthcare workers) tested during screening testing
