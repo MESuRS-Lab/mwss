@@ -9,14 +9,14 @@ build_gdata(
   n_ctcH_PW = 4, t_ctcH_PW = 15 / 60 / 24, n_ctcP_PW = 4, t_ctcP_PW = 30 / 60 / 24,
   n_ctcH_H = 5, t_ctcH_H = 3 / 60 / 24, t_ctcV_PW = 20 / 60 / 24,
   I = 185 / 100000, d = 10, R0 = 1.29, tw = 35,
-  tSA  = 2 / 24, tISO = 11, tIC  = 15, tSL  = 14, tESL = 28, tE  = 5,
+  tSA  = 2 / 24, tIC  = 15, tSL  = 14, tESL = 28, tE  = 5,
   tEA = 2, tES = 2, tIA = 7, tIM = 8, tIS = 9, tLI = 60, tHI = 150,
   epsPPSA = 0.1, epsHPSA = 0.1, epsHPW = 0.1, epsPPW = 0.1,
   epsVPW = 0.1, epsPHSA = 0.1, epsPHW = 0.1, epsHHW = 0.1,
   ttestSA = 2 / 24, ttestPW = 2 / 24, ttestHW = 2 / 24, ttestsymp = 2 / 24,
   tbtwtestP = 14, tbtwtestH = 30, tbeftestPsymp = 2 / 24, tbeftestHsymp = 1,
   psympNI = 0.5, psympLI = 0.2, psympHI = 0.1, psevNI = 0.5, psevLI = 0.3, psevHI = 0.1,
-  pISO = 1, pSL = 0.3, pESL = 1, pSLT = 0.01, pIC = 0.3, pdieIC = 0.005,
+  pISO = TRUE, pSL = 0.3, pESL = 1, pSLT = 0.01, pIC = 0.3, pdieIC = 0.005,
   pLI = 0.20, pHI = 0.5, hNI2LI = 1 / 30, hLI2HI = 1 / 60, rinfLI = 0.7, rinfHI = 0.5,
   rsymp = 1, rsev = 1,
   ptestPSAsymp = 1, ptestPSANI = .75, ptestPSALI = 0.50, ptestPSAHI = 0.1,
@@ -26,6 +26,8 @@ build_gdata(
   senH = 0.85, speH = 0.95, sensymp = 0.85, spesymp = 0.95)
 }
 \arguments{
+\item{disease}{string. only Covid and Influenza are available}
+
 \item{n_ctcH_PSA}{a positive number, the daily number of contacts with professionals per patient in the screening area}
 
 \item{t_ctcH_PSA}{a positive number, the average duration of contact between professional and patient per day in the screening area (in days, ex: if 15 min, t_ctcH_PSA = 15/60/24)}
@@ -57,8 +59,6 @@ build_gdata(
 \item{tw}{a positive number, the average number of working hours per week (in hours)}
 
 \item{tSA}{a positive number, the average duration (in days) before full admission (in screening area for clinical exam, administrative procedure, etc)}
-
-\item{tISO}{a positive number, the average duration (in days) of confinement (isolated ward or contact restriction)}
 
 \item{tIC}{a positive number, the average duration (in days) of stay in intensive care}
 
@@ -126,7 +126,7 @@ build_gdata(
 
 \item{psevHI}{a positive probability, the conditional probability to develop severe symptoms when symptomatic and despite a high immunity}
 
-\item{pISO}{a positive probability, the probability to be isolated if confirmed case}
+\item{pISO}{probability, level of contact restrictions (confinement/quarantine/isolation) in case of positive test}
 
 \item{pSL}{a positive probability, the probability for professional with mild symptoms of taking sick leave}
 
@@ -153,6 +153,16 @@ build_gdata(
 \item{rsymp}{a ratio, the average ratio increasing or reducing the probability to develop symptoms for patients compared to general population (professionals)}
 
 \item{rsev}{a ratio, the average ratio increasing or reducing the probability to develop severe symptoms for symptomatic patients compared to general population (professionals)}
+
+\item{rEA}{a ratio, the ratio of excretion for individuals in epidemiological stage EA (exposed - contagious pre-asymptomatic)}
+
+\item{rES}{a ratio, the ratio of excretion for individuals in epidemiological stage ES (exposed - contagious pre-symptomatic)}
+
+\item{rIA}{a ratio, the ratio of excretion for individuals in epidemiological stage IA (infectious asymptomatic)}
+
+\item{rIM}{a ratio, the ratio of excretion for individuals in epidemiological stage IM (infectious with mild symptoms)}
+
+\item{rIS}{a ratio, the ratio of excretion for individuals in epidemiological stage IS (infectious with severe symptoms)}
 
 \item{ptestPSAsymp}{a positive probability, the probability to test symptomatic patients in the screening area}
 

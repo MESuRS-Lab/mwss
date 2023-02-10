@@ -14,7 +14,7 @@ multisim(model, nSim, ward_names)
 \item{ward_names}{String vector with ward names/id in the same order than the one used in the function \code{mwss} to build the model}
 }
 \value{
-List of data.table of class 'mwss'
+List of data.table of class 'mwss'. Additional ISO, SA,ScreenP, ScreenH, TestSympP and TestSympH classes are added depending on the prevention, surveillance and control measures implemented in the model.
 }
 \description{
 The function \code{multisim} run the model multiple times, save the results in a list of class 'mwss'.
