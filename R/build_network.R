@@ -9,7 +9,9 @@
 #' @param total_HCW integer. Total number of HCW in the hospital
 #' @param minLS integer. Minimal number of days for random length of stay
 #' @param maxLS integer. Maximal number of days for random length of stay
-#' @param within_clust numeric. Ratio of intra-building clustering (relative to inter-building clustering)
+#' @param clust_ratio_inout numeric. Ratio of intra-building clustering (relative to inter-building clustering)
+#' @param within_clust_lev numeric. Probability of creating links between wards of the same building
+#' @param between_clust_lev numeric. Probability of creating links between wards of different building
 #' @param silent logical. Print plot if TRUE
 #'
 #' @importFrom igraph erdos.renyi.game
@@ -28,14 +30,16 @@ build_network <- function(n_buildings = 5,
                           total_HCW = 900,
                           minLS = 14,
                           maxLS = 28,
-                          within_clust = 0.8,
+                          within_clust_lev = 0.8,
+                          between_clust_lev = 0.1,
+                          clust_ratio_inout = 0.8,
                           silent = F){
 
 #######################################################################
 
 ## Checks
   if(length(n_wards) != n_buildings) stop("The vector of \'n_wards\' should be equal to \'n_buildings\'")
-  if(within_clust < 0 | within_clust > 1) stop("\'within_clust\' is a ratio and must be between 0 and 1")
+  if(clust_ratio_inout < 0 | clust_ratio_inout > 1) stop("\'clust_ratio_inout\' is a ratio and must be between 0 and 1")
 
 ## total number of wards
 tot_n_wards <- sum(n_wards)
@@ -133,8 +137,8 @@ contact_matrix_generator <- function(g) {
 ## the following function generates a matrix from the weighted sum of two networks
 generate_network <- function(n_buildings,
                              n_wards,
-                             p = c(within_clust,(1-within_clust)),
-                             dist_within_between = c(within_clust,(1-within_clust))){
+                             p = c(within_clust_lev,between_clust_lev),
+                             dist_within_between = c(clust_ratio_inout,(1-clust_ratio_inout))){
   # vector indicating the parameters of the erdos renyi graph for within building and at the hospital level networks
   networks_list <- list()
   # build a erdos.renyi.game network for each building

@@ -19,7 +19,11 @@ build_network()
 
 \item{maxLS}{integer. Maximal number of days for random length of stay}
 
-\item{within_clust}{numeric. Ratio of intra-building clustering (relative to inter-building clustering)}
+\item{within_clust_lev}{numeric. Probability of creating links between wards of the same building}
+
+\item{between_clust_lev}{numeric. Probability of creating links between wards of different building}
+
+\item{clust_ratio_inout}{numeric. Ratio of intra-building clustering (relative to inter-building clustering)}
 
 \item{silent}{logical. Print plot if TRUE}
 }
