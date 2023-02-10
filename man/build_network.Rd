@@ -20,6 +20,8 @@ build_network()
 \item{maxLS}{integer. Maximal number of days for random length of stay}
 
 \item{within_clust}{numeric. Ratio of intra-building clustering (relative to inter-building clustering)}
+
+\item{silent}{logical. Print plot if TRUE}
 }
 \value{
 A list of 9 elements: 1. ward_names, 2. pop_size_P, 3. pop_size_H, nVisits, 5. LS (length of stay), 6. Hplanning, 7. matContact, 8. IMMstate, 9. EPIstate

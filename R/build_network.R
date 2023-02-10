@@ -10,6 +10,11 @@
 #' @param minLS integer. Minimal number of days for random length of stay
 #' @param maxLS integer. Maximal number of days for random length of stay
 #' @param within_clust numeric. Ratio of intra-building clustering (relative to inter-building clustering)
+#' @param silent logical. Print plot if TRUE
+#'
+#' @importFrom igraph erdos.renyi.game
+#' @importFrom igraph as_adjacency_matrix
+#' @importFrom fields image.plot
 #'
 #' @usage build_network()
 #'
@@ -23,7 +28,8 @@ build_network <- function(n_buildings = 5,
                           total_HCW = 900,
                           minLS = 14,
                           maxLS = 28,
-                          within_clust = 0.8){
+                          within_clust = 0.8,
+                          silent = F){
 
 #######################################################################
 
@@ -175,6 +181,7 @@ generate_network <- function(n_buildings,
 }
 
 output = generate_network(n_buildings=n_buildings, n_wards=n_wards)
+if(silent)
 image.plot(output)
 
 #image.plot(saveInputs$matContact)
