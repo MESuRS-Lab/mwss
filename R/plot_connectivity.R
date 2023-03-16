@@ -11,6 +11,7 @@
 #' @param matContact Square matrix reporting the average proportion of time spent by professionals of a given ward in the different wards. Sum of rows must be equal to 1. The line width scale for edges will depend on this argument.
 #' @param size Vector of population size in each ward (beds, HCWS or sum of both). The size of the nodes/vertex/wards will depend on this argument.
 #' @param vertexcexrate Integer, proportional coefficient to adjust vertex names size.
+#' @param vertexcol Character, vector defining the colors of vertices in the plot.
 #' @param edgewidthrate Integer, proportional coefficient to adjust edge width.
 #' @param netobj Logical, define if the function return an igraph oject (TRUE) or a plot (FALSE). Default is FALSE.
 #' @param verbose Logical, activate production of details messages.
@@ -42,9 +43,16 @@ plot_connectivity <-
   function(matContact,
            size,
            vertexcexrate = 3,
+           vertexcol = "grey",
            edgewidthrate = 5,
            netobj = FALSE,
            verbose = TRUE) {
+
+    # Check
+
+    if(length(vertexcol) > 1 & length(vertexcol) != length(size)) stop("vertexcol must be either a unique color or a vector attributing one color by node")
+
+    names(vertexcol) <- colnames(matContact)
 
     # Add names if none in size vector
 
@@ -89,14 +97,16 @@ plot_connectivity <-
     if (isTRUE(netobj))
       return(g)
 
+    vnames <- network::get.vertex.attribute(g, "vertex.names")
+
+    if(length(vertexcol) == 1) vertexcol %>% rep(., length(vnames))
+
     # If the nodes/wards are connected
     if (sum(connections$nHCWS != 0) > 0) {
-      vnames <- network::get.vertex.attribute(g, "vertex.names")
-
       plot.network(
         g,
         # our network object
-        vertex.col = "grey",
+        vertex.col = vertexcol[vnames],
         # color nodes
         vertex.cex = (size[vnames] / max(size[vnames])) * vertexcexrate,
         edge.lwd = network::get.edge.attribute(g, "weight"),
@@ -110,7 +120,7 @@ plot_connectivity <-
       plot.network(
         g,
         # our network object
-        vertex.col = "grey",
+        vertex.col = vertexcol[vnames],
         # color nodes
         vertex.cex = (size / max(size)) * vertexcexrate,
         # size nodes

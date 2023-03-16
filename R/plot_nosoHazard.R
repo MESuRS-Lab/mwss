@@ -94,7 +94,7 @@ plot_nosoHazard <-
     g <-
       plot_connectivity(matContact,
                         pop_size_P,
-                        edgewidthrate,
+                        edgewidthrate = edgewidthrate,
                         netobj = TRUE,
                         verbose = verbose)
 
