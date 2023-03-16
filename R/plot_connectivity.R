@@ -58,7 +58,7 @@ plot_connectivity <-
       vertexcol %<>% rep(., length(size))
 
     if (is.null(names(vertexcol))) {
-      names(vertexcol) <- colnames(vertexcol)
+      names(vertexcol) <- colnames(matContact)
     }
 
     # Add names if none in size vector
