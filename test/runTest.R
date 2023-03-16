@@ -65,7 +65,7 @@ gdata <- build_gdata(
   t_ctcV_PW = 20/60/24,
   I = 185/100000, # Daily incidence (https://www.gouvernement.fr/info-coronavirus/carte-et-donnees)
   d = 10,  # Average disease duration (days)
-  R0 = 1.29, # Basic reproduction number - https://www.gouvernement.fr/info-coronavirus/carte-et-donnees
+  R0 = 13, # Basic reproduction number - https://www.gouvernement.fr/info-coronavirus/carte-et-donnees
   tw = 35, # Average number of working hours per week (in hours)
   tSA  = 2/24, # average duration before full admission (in screening area for clinical exam, administrative procedure, etc)
   tIC  = 15,   # average duration of stay in intensive care
