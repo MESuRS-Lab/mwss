@@ -110,6 +110,8 @@ if(!layout %in% c("as_star","as_tree","in_circle","nicely","on_grid","on_sphere"
                         netobj = TRUE,
                         verbose = verbose)
 
+
+
     g %<>% asIgraph(.)
 
     # probability of outbreak in ward

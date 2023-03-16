@@ -185,7 +185,7 @@ const int pISO = (int)",as.numeric(gdata[["pISO"]]), "L;
 const int npropinf = (int) 2L;
 unsigned int i = 0;
 double infMWp, infMWh, totMWp, totMWh, wpropInfHorig, wpropInfHdest, wpropInfPWdest = 0.00;
-double pinf[", nwards * 2, "] = {0};
+double pinf[", nwards * 2,"] = {0};
 const int * u_0 = &u[-node*nCpmt];
 
 // set pinf content to 0
