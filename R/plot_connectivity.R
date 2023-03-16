@@ -50,9 +50,16 @@ plot_connectivity <-
 
     # Check
 
-    if(length(vertexcol) > 1 & length(vertexcol) != length(size)) stop("vertexcol must be either a unique color or a vector attributing one color by node")
+    if(length(vertexcol) > 1 & length(vertexcol) != length(size))
+      stop("vertexcol must be either a unique color or a vector attributing one color by node")
 
-    names(vertexcol) <- colnames(matContact)
+
+    if(length(vertexcol) == 1)
+      vertexcol %<>% rep(., length(size))
+
+    if (is.null(names(vertexcol))) {
+      names(vertexcol) <- colnames(vertexcol)
+    }
 
     # Add names if none in size vector
 
@@ -94,12 +101,10 @@ plot_connectivity <-
 
     g %e% "weight" %<>%  multiply_by(edgewidthrate)
 
-    if (isTRUE(netobj))
+    if(isTRUE(netobj))
       return(g)
 
     vnames <- network::get.vertex.attribute(g, "vertex.names")
-
-    if(length(vertexcol) == 1) vertexcol %>% rep(., length(vnames))
 
     # If the nodes/wards are connected
     if (sum(connections$nHCWS != 0) > 0) {
