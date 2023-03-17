@@ -218,7 +218,7 @@ plot_testcount <- function(trajmwss,
     }
   }
 
-
+  print(p)
   return(p)
 
 }
