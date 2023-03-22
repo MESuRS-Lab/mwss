@@ -939,10 +939,10 @@ build_gdata <- function(
     tbeftestHsymp = tbeftestHsymp,
     # duration before test of symp HCWS
 
-    # R0
-    hinc = I,
     # daily incidence in the community
-    prev = I * d / (1 + I * d),
+    hinc = I /100000,
+    # daily incidence in the community
+    prev = hinc * d,
     # prevalence (probability to be infected at the admission)
     pconta = R0 / (8 * (30 / 60 / 24) * d),
     # https://doi.org/10.1093/cid/ciaa682
