@@ -940,7 +940,7 @@ build_gdata <- function(
     # duration before test of symp HCWS
 
     # daily incidence in the community
-    hinc = I /100000,
+    hinc = I,
     # daily incidence in the community
     prev = hinc * d,
     # prevalence (probability to be infected at the admission)
