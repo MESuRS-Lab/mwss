@@ -942,7 +942,7 @@ build_gdata <- function(
     # daily incidence in the community
     hinc = I,
     # daily incidence in the community
-    prev = hinc * d,
+    prev = I * d,
     # prevalence (probability to be infected at the admission)
     pconta = R0 / (8 * (30 / 60 / 24) * d),
     # https://doi.org/10.1093/cid/ciaa682
