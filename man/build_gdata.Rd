@@ -8,7 +8,7 @@ build_gdata(
   n_ctcH_PSA = 2, t_ctcH_PSA = 10 / 60 / 24, n_ctcP_PSA = 0, t_ctcP_PSA = 5 / 60 / 24,
   n_ctcH_PW = 4, t_ctcH_PW = 15 / 60 / 24, n_ctcP_PW = 4, t_ctcP_PW = 30 / 60 / 24,
   n_ctcH_H = 5, t_ctcH_H = 3 / 60 / 24, t_ctcV_PW = 20 / 60 / 24,
-  I = 185 / 100000, d = 10, R0 = 1.29, tw = 35,
+  I = 185 / 100000, d = 10, R0 = 13, tw = 35,
   tSA  = 2 / 24, tIC  = 15, tSL  = 14, tESL = 28, tE  = 5,
   tEA = 2, tES = 2, tIA = 7, tIM = 8, tIS = 9, tLI = 60, tHI = 150,
   epsPPSA = 0.1, epsHPSA = 0.1, epsHPW = 0.1, epsPPW = 0.1,

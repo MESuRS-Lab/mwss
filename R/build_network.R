@@ -17,6 +17,8 @@
 #' @importFrom igraph erdos.renyi.game
 #' @importFrom igraph as_adjacency_matrix
 #' @importFrom fields image.plot
+#' @importFrom fields image.plot
+#' @importFrom stringr str_sub
 #'
 #' @usage build_network()
 #'
@@ -63,8 +65,14 @@ idmaker <- function(x)
   return(ids)
 }
 
+if(n_buildings <= 26){
 
-network_input$ward_names <- idmaker(tot_n_wards)
+  network_input$ward_names <- sapply(1:n_buildings, function(x){
+    paste0(LETTERS[x], paste0("00", 1:n_wards[x]) %>% str_sub(start= -3))
+  }) %>% unlist
+
+} else
+  network_input$ward_names <- idmaker(tot_n_wards)
 
 ########################################################################
 

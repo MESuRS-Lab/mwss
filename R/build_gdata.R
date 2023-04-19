@@ -473,6 +473,7 @@ build_gdata <- function(
   if(is.null(speW)) speW = 0.95
   if(is.null(senH)) senH = 0.85
   if(is.null(speH)) speH = 0.95
+
   if(is.null(sensymp)) sensymp = 0.85
   if(is.null(spesymp)) spesymp = 0.95
   }

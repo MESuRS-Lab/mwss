@@ -16,6 +16,8 @@ plot_connectivity(
 
 \item{vertexcexrate}{Integer, proportional coefficient to adjust vertex names size.}
 
+\item{vertexcol}{Character, vector defining the colors of vertices in the plot.}
+
 \item{edgewidthrate}{Integer, proportional coefficient to adjust edge width.}
 
 \item{netobj}{Logical, define if the function return an igraph oject (TRUE) or a plot (FALSE). Default is FALSE.}

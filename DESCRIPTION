@@ -24,7 +24,7 @@ License: GPL-3
 URL: https://github.com/ajmalo/mwss
 BugReports: https://github.com/ajmalo/mwss/issues
 Depends: R (>= 4.0.0)
-Imports: SimInf, ggplot2, magrittr, data.table, purrr, Hmisc, igraph, reshape2, scales, intergraph, network, fields, stats
+Imports: SimInf, ggplot2, magrittr, data.table, purrr, Hmisc, igraph, reshape2, scales, intergraph, network, fields, stats, stringr
 Suggests: testthat, knitr, rmarkdown
 VignetteBuilder:
     knitr
