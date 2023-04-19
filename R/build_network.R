@@ -199,8 +199,8 @@ image.plot(output)
 #image.plot(saveInputs$matContact)
 
 network_input$matContact <- output
-rownames(network_input$matContact) <- as.vector(network_input$ward_names)
-colnames(network_input$matContact) <- as.vector(network_input$ward_names)
+rownames(network_input$matContact) <- network_input$ward_names
+colnames(network_input$matContact) <- network_input$ward_names
 
 ########################################################################
 
