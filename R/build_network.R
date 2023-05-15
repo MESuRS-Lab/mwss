@@ -42,6 +42,7 @@ build_network <- function(n_buildings = 5,
 ## Checks
   if(length(n_wards) != n_buildings) stop("The vector of \'n_wards\' should be equal to \'n_buildings\'")
   if(clust_ratio_inout < 0 | clust_ratio_inout > 1) stop("\'clust_ratio_inout\' is a ratio and must be between 0 and 1")
+  if(TRUE %in% (n_wards >= 100)) stop("Buildings cannot contain more than 100 wards (\'n_wards\' elements  must be <= 100)")
 
 ## total number of wards
 tot_n_wards <- sum(n_wards)
@@ -59,8 +60,8 @@ idmaker <- function(x)
   max.val = x*100
   count <- nchar(as.character(max.val))                       # find out how many 'numbers' each ID will have after the letter
   size <- paste("%0",count,"d",sep="")                        # set the variable to be fed into 'sprintf' to ensure we have leading 0's
-  lets <- toupper(sample(letters,x, replace=T))               # randomising the letters
-  nums <- sprintf(size,sample(1:max.val)[1:x])                # randominsing the numbers, and ensuing they all have the same number of characters
+  lets <- toupper(sample(letters,x, replace=T))               # randomizing the letters
+  nums <- sprintf(size,sample(1:max.val)[1:x])                # randomizing the numbers, and ensuing they all have the same number of characters
   ids <- paste(lets,nums,sep="")                              # joining them together
   return(ids)
 }
@@ -68,7 +69,7 @@ idmaker <- function(x)
 if(n_buildings <= 26){
 
   network_input$ward_names <- sapply(1:n_buildings, function(x){
-    paste0(LETTERS[x], paste0("00", 1:n_wards[x]) %>% str_sub(start= -3))
+    paste0(LETTERS[x], paste0("00", 1:n_wards[x]) %>% str_sub(start= -2))
   }) %>% unlist
 
 } else
