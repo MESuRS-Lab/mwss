@@ -474,8 +474,8 @@ build_gdata <- function(
   if(is.null(senH)) senH = 0.85
   if(is.null(speH)) speH = 0.95
 
-  if(is.null(sensymp)) sensymp = 0.85
-  if(is.null(spesymp)) spesymp = 0.95
+  if(is.null(sensymp)) sensymp = 1
+  if(is.null(spesymp)) spesymp = 1
   }
 
 
@@ -493,8 +493,8 @@ build_gdata <- function(
     if(is.null(t_ctcH_H)) t_ctcH_H = 3 / 60 / 24
     if(is.null(t_ctcV_PW)) t_ctcV_PW = 20 / 60 / 24
     if(is.null(I)) I = 185 / 100000
-    if(is.null(d)) d = 10
-    if(is.null(R0)) R0 = 13
+    if(is.null(d)) d = 7
+    if(is.null(R0)) R0 = 1.3
     if(is.null(tw)) tw = 35
     # https://www.gouvernement.fr/info-coronavirus/carte-et-donnees
     if(is.null(tSA)) tSA  = 2 / 24
@@ -505,19 +505,19 @@ build_gdata <- function(
     # average duration of sick leave
     if(is.null(tESL)) tESL = 28
     # average duration of extended sick leave
-    if(is.null(tE)) tE  = 5
+    if(is.null(tE)) tE  = 1
     # duration epidemiological state E
-    if(is.null(tEA)) tEA = 2
+    if(is.null(tEA)) tEA = 0
     # duration epidemiological state EA
-    if(is.null(tES)) tES = 2
+    if(is.null(tES)) tES = 1
     # duration epidemiological state ES
-    if(is.null(tIA)) tIA = 7
+    if(is.null(tIA)) tIA = 0
     # duration epidemiological state IA
     if(is.null(tIM)) tIM = 8
     # duration epidemiological state IM
-    if(is.null(tIS)) tIS = 9
+    if(is.null(tIS)) tIS = 5
     # duration epidemiological state IS
-    if(is.null(tLI)) tLI = 60
+    if(is.null(tLI)) tLI = 8
     # duration of partial immunity before return to non immune status
     if(is.null(tHI)) tHI = 150
     # duration of full immunity before return to partial immune status
