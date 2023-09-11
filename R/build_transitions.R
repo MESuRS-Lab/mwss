@@ -10,7 +10,7 @@
 #' @noRd
 
 
-build_transitions <- function(SA){
+build_transitions <- function(SA, gdata){
 
   ### Check
 
@@ -254,18 +254,18 @@ build_transitions <- function(SA){
       paste("PW_S_HI_T -> ", PWEMPTY,"? 0 : PW_S_HI_T * (1 - pISO) *", lambdaPW ," * rinfHI -> PW_E_HI_T + infP"),
       ### Disease cycle
       # NI
-      "PW_E_NI -> PW_E_NI * ( 1 / tE) * (1 - psympNI) -> PW_EA_NI",
-      "PW_EA_NI -> PW_EA_NI * ( 1 / tEA) -> PW_IA_NI + incPA",
-      "PW_IA_NI -> PW_IA_NI * ( 1 / tIA) -> PW_S_HI",
+      if(gdata["psympNI"] < 1) "PW_E_NI -> PW_E_NI * ( 1 / tE) * (1 - psympNI) -> PW_EA_NI",
+      if(gdata["psympNI"] < 1) "PW_EA_NI -> PW_EA_NI * ( 1 / tEA) -> PW_IA_NI + incPA",
+      if(gdata["psympNI"] < 1) "PW_IA_NI -> PW_IA_NI * ( 1 / tIA) -> PW_S_HI",
       "PW_E_NI -> PW_E_NI * ( 1 / tE) * psympNI -> PW_ES_NI",
       "PW_ES_NI -> PW_ES_NI * ( 1 / tES) * (1 - psevPNI) -> PW_IM_NI + incPM",
       "PW_ES_NI -> PW_ES_NI * ( 1 / tES) * psevPNI -> PW_IS_NI + incPS",
       "PW_IM_NI -> PW_IM_NI * ( 1 / tIM) -> PW_S_HI",
       "PW_IS_NI -> PW_IS_NI * (1 - pIC) * ( 1 / tIS) -> PW_S_HI",
       "PW_IS_NI -> PW_IS_NI * pIC * ( 1 / tIS) -> IC",
-      "PW_E_NI_T -> PW_E_NI_T * ( 1 / tE) * (1 - psympNI) -> PW_EA_NI_T",
-      "PW_EA_NI_T -> PW_EA_NI_T * ( 1 / tEA) -> PW_IA_NI_T + incPA",
-      "PW_IA_NI_T -> PW_IA_NI_T * ( 1 / tIA) -> PW_S_HI",
+      if(gdata["psympNI"] < 1) "PW_E_NI_T -> PW_E_NI_T * ( 1 / tE) * (1 - psympNI) -> PW_EA_NI_T",
+      if(gdata["psympNI"] < 1) "PW_EA_NI_T -> PW_EA_NI_T * ( 1 / tEA) -> PW_IA_NI_T + incPA",
+      if(gdata["psympNI"] < 1) "PW_IA_NI_T -> PW_IA_NI_T * ( 1 / tIA) -> PW_S_HI",
       "PW_E_NI_T -> PW_E_NI_T * ( 1 / tE) * psympNI -> PW_ES_NI_T",
       "PW_ES_NI_T -> PW_ES_NI_T * ( 1 / tES) * (1 - psevPNI) -> PW_IM_NI_T + incPM",
       "PW_ES_NI_T -> PW_ES_NI_T * ( 1 / tES) * psevPNI -> PW_IS_NI_T + incPS",
@@ -273,18 +273,18 @@ build_transitions <- function(SA){
       "PW_IS_NI_T -> PW_IS_NI_T * (1 - pIC) * ( 1 / tIS) -> PW_S_HI",
       "PW_IS_NI_T -> PW_IS_NI_T * pIC * ( 1 / tIS) -> IC",
       # LI
-      "PW_E_LI -> PW_E_LI * ( 1 / tE) * (1 - psympLI) -> PW_EA_LI",
-      "PW_EA_LI -> PW_EA_LI * ( 1 / tEA) -> PW_IA_LI + incPA",
-      "PW_IA_LI -> PW_IA_LI * ( 1 / tIA) -> PW_S_HI",
+      if(gdata["psympLI"] < 1) "PW_E_LI -> PW_E_LI * ( 1 / tE) * (1 - psympLI) -> PW_EA_LI",
+      if(gdata["psympLI"] < 1) "PW_EA_LI -> PW_EA_LI * ( 1 / tEA) -> PW_IA_LI + incPA",
+      if(gdata["psympLI"] < 1) "PW_IA_LI -> PW_IA_LI * ( 1 / tIA) -> PW_S_HI",
       "PW_E_LI -> PW_E_LI * ( 1 / tE) * psympLI -> PW_ES_LI",
       "PW_ES_LI -> PW_ES_LI * ( 1 / tES) * (1 - psevPLI) -> PW_IM_LI + incPM",
       "PW_ES_LI -> PW_ES_LI * ( 1 / tES) * psevPLI -> PW_IS_LI + incPS",
       "PW_IM_LI -> PW_IM_LI * ( 1 / tIM) -> PW_S_HI",
       "PW_IS_LI -> PW_IS_LI * (1 - pIC) * ( 1 / tIS) -> PW_S_HI",
       "PW_IS_LI -> PW_IS_LI * pIC * ( 1 / tIS) -> IC",
-      "PW_E_LI_T -> PW_E_LI_T * ( 1 / tE) * (1 - psympLI) -> PW_EA_LI_T",
-      "PW_EA_LI_T -> PW_EA_LI_T * ( 1 / tEA) -> PW_IA_LI_T + incPA",
-      "PW_IA_LI_T -> PW_IA_LI_T * ( 1 / tIA) -> PW_S_HI",
+      if(gdata["psympLI"] < 1) "PW_E_LI_T -> PW_E_LI_T * ( 1 / tE) * (1 - psympLI) -> PW_EA_LI_T",
+      if(gdata["psympLI"] < 1) "PW_EA_LI_T -> PW_EA_LI_T * ( 1 / tEA) -> PW_IA_LI_T + incPA",
+      if(gdata["psympLI"] < 1) "PW_IA_LI_T -> PW_IA_LI_T * ( 1 / tIA) -> PW_S_HI",
       "PW_E_LI_T -> PW_E_LI_T * ( 1 / tE) * psympLI -> PW_ES_LI_T",
       "PW_ES_LI_T -> PW_ES_LI_T * ( 1 / tES) * (1 - psevPLI) -> PW_IM_LI_T + incPM",
       "PW_ES_LI_T -> PW_ES_LI_T * ( 1 / tES) * psevPLI -> PW_IS_LI_T + incPS",
@@ -292,18 +292,18 @@ build_transitions <- function(SA){
       "PW_IS_LI_T -> PW_IS_LI_T * (1 - pIC) * ( 1 / tIS) -> PW_S_HI",
       "PW_IS_LI_T -> PW_IS_LI_T * pIC * ( 1 / tIS) -> IC",
       # HI
-      "PW_E_HI -> PW_E_HI * ( 1 / tE) * (1 - psympHI) -> PW_EA_HI",
-      "PW_EA_HI -> PW_EA_HI * ( 1 / tEA) -> PW_IA_HI + incPA",
-      "PW_IA_HI -> PW_IA_HI * ( 1 / tIA) -> PW_S_HI",
+      if(gdata["psympHI"] < 1) "PW_E_HI -> PW_E_HI * ( 1 / tE) * (1 - psympHI) -> PW_EA_HI",
+      if(gdata["psympHI"] < 1) "PW_EA_HI -> PW_EA_HI * ( 1 / tEA) -> PW_IA_HI + incPA",
+      if(gdata["psympHI"] < 1) "PW_IA_HI -> PW_IA_HI * ( 1 / tIA) -> PW_S_HI",
       "PW_E_HI -> PW_E_HI * ( 1 / tE) * psympHI -> PW_ES_HI",
       "PW_ES_HI -> PW_ES_HI * ( 1 / tES) * (1 - psevPHI) -> PW_IM_HI + incPM",
       "PW_ES_HI -> PW_ES_HI * ( 1 / tES) * psevPHI -> PW_IS_HI + incPS",
       "PW_IM_HI -> PW_IM_HI * ( 1 / tIM) -> PW_S_HI",
       "PW_IS_HI -> PW_IS_HI * (1 - pIC) * ( 1 / tIS) -> PW_S_HI",
       "PW_IS_HI -> PW_IS_HI * pIC * ( 1 / tIS) -> IC",
-      "PW_E_HI_T -> PW_E_HI_T * ( 1 / tE) * (1 - psympHI) -> PW_EA_HI_T",
-      "PW_EA_HI_T -> PW_EA_HI_T * ( 1 / tEA) -> PW_IA_HI_T + incPA",
-      "PW_IA_HI_T -> PW_IA_HI_T * ( 1 / tIA) -> PW_S_HI",
+      if(gdata["psympHI"] < 1) "PW_E_HI_T -> PW_E_HI_T * ( 1 / tE) * (1 - psympHI) -> PW_EA_HI_T",
+      if(gdata["psympHI"] < 1) "PW_EA_HI_T -> PW_EA_HI_T * ( 1 / tEA) -> PW_IA_HI_T + incPA",
+      if(gdata["psympHI"] < 1) "PW_IA_HI_T -> PW_IA_HI_T * ( 1 / tIA) -> PW_S_HI",
       "PW_E_HI_T -> PW_E_HI_T * ( 1 / tE) * psympHI -> PW_ES_HI_T",
       "PW_ES_HI_T -> PW_ES_HI_T * ( 1 / tES) * (1 - psevPHI) -> PW_IM_HI_T + incPM",
       "PW_ES_HI_T -> PW_ES_HI_T * ( 1 / tES) * psevPHI -> PW_IS_HI_T + incPS",
@@ -400,9 +400,9 @@ build_transitions <- function(SA){
       ### Disease cycle
       ###
       # NI
-      "H_E_NI -> H_E_NI * ( 1 / tE) * (1 - psympPNI) -> H_EA_NI",
-      "H_EA_NI -> H_EA_NI * ( 1 / tEA) -> H_IA_NI + incHA",
-      "H_IA_NI -> H_IA_NI * ( 1 / tIA) -> H_S_HI",
+      if(gdata["psympPNI"] < 1) "H_E_NI -> H_E_NI * ( 1 / tE) * (1 - psympPNI) -> H_EA_NI",
+      if(gdata["psympPNI"] < 1) "H_EA_NI -> H_EA_NI * ( 1 / tEA) -> H_IA_NI + incHA",
+      if(gdata["psympPNI"] < 1) "H_IA_NI -> H_IA_NI * ( 1 / tIA) -> H_S_HI",
       "H_E_NI -> H_E_NI * ( 1 / tE) * psympPNI -> H_ES_NI",
       "H_ES_NI -> H_ES_NI * ( 1 / tES) * (1 - psevNI) -> H_IM_NI + incHM",
       "H_ES_NI -> H_ES_NI * ( 1 / tES) * psevNI -> H_IS_NI + incHS",
@@ -411,9 +411,9 @@ build_transitions <- function(SA){
       "H_IS_NI -> H_IS_NI * (1 - pESL) * ( 1 / tIS) -> H_S_HI",
       "H_IS_NI -> H_IS_NI * pESL * ( 1 / tIS) -> ESL",
       #
-      "H_E_NI_T -> H_E_NI_T * ( 1 / tE) * (1 - psympPNI) -> H_EA_NI_T",
-      "H_EA_NI_T -> H_EA_NI_T * ( 1 / tEA) -> H_IA_NI_T + incHA",
-      "H_IA_NI_T -> H_IA_NI_T * ( 1 / tIA) -> H_S_HI",
+      if(gdata["psympPNI"] < 1) "H_E_NI_T -> H_E_NI_T * ( 1 / tE) * (1 - psympPNI) -> H_EA_NI_T",
+      if(gdata["psympPNI"] < 1) "H_EA_NI_T -> H_EA_NI_T * ( 1 / tEA) -> H_IA_NI_T + incHA",
+      if(gdata["psympPNI"] < 1) "H_IA_NI_T -> H_IA_NI_T * ( 1 / tIA) -> H_S_HI",
       "H_E_NI_T -> H_E_NI_T * ( 1 / tE) * psympPNI -> H_ES_NI_T",
       "H_ES_NI_T -> H_ES_NI_T * ( 1 / tES) * (1 - psevNI) -> H_IM_NI_T + incHM",
       "H_ES_NI_T -> H_ES_NI_T * ( 1 / tES) * psevNI -> H_IS_NI_T + incHS",
@@ -422,9 +422,9 @@ build_transitions <- function(SA){
       "H_IS_NI_T -> H_IS_NI_T * (1 - pESL) * ( 1 / tIS) -> H_S_HI_T",
       "H_IS_NI_T -> H_IS_NI_T * pESL * ( 1 / tIS) -> ESL",
       # LI
-      "H_E_LI -> H_E_LI * ( 1 / tE) * (1 - psympPLI) -> H_EA_LI",
-      "H_EA_LI -> H_EA_LI * ( 1 / tEA) -> H_IA_LI + incHA",
-      "H_IA_LI -> H_IA_LI * ( 1 / tIA) -> H_S_HI",
+      if(gdata["psympPLI"] < 1) "H_E_LI -> H_E_LI * ( 1 / tE) * (1 - psympPLI) -> H_EA_LI",
+      if(gdata["psympPLI"] < 1) "H_EA_LI -> H_EA_LI * ( 1 / tEA) -> H_IA_LI + incHA",
+      if(gdata["psympPLI"] < 1) "H_IA_LI -> H_IA_LI * ( 1 / tIA) -> H_S_HI",
       "H_E_LI -> H_E_LI * ( 1 / tE) * psympPLI -> H_ES_LI",
       "H_ES_LI -> H_ES_LI * ( 1 / tES) * (1 - psevLI) -> H_IM_LI + incHM",
       "H_ES_LI -> H_ES_LI * ( 1 / tES) * psevLI -> H_IS_LI + incHS",
@@ -433,9 +433,9 @@ build_transitions <- function(SA){
       "H_IS_LI -> H_IS_LI * (1 - pESL) * ( 1 / tIS) -> H_S_HI",
       "H_IS_LI -> H_IS_LI * pESL * ( 1 / tIS) -> ESL",
       #
-      "H_E_LI_T -> H_E_LI_T * ( 1 / tE) * (1 - psympPLI) -> H_EA_LI_T",
-      "H_EA_LI_T -> H_EA_LI_T * ( 1 / tEA) -> H_IA_LI_T + incHA",
-      "H_IA_LI_T -> H_IA_LI_T * ( 1 / tIA) -> H_S_HI",
+      if(gdata["psympPLI"] < 1) "H_E_LI_T -> H_E_LI_T * ( 1 / tE) * (1 - psympPLI) -> H_EA_LI_T",
+      if(gdata["psympPLI"] < 1) "H_EA_LI_T -> H_EA_LI_T * ( 1 / tEA) -> H_IA_LI_T + incHA",
+      if(gdata["psympPLI"] < 1) "H_IA_LI_T -> H_IA_LI_T * ( 1 / tIA) -> H_S_HI",
       "H_E_LI_T -> H_E_LI_T * ( 1 / tE) * psympPLI -> H_ES_LI_T",
       "H_ES_LI_T -> H_ES_LI_T * ( 1 / tES) * (1 - psevLI) -> H_IM_LI_T + incHM",
       "H_ES_LI_T -> H_ES_LI_T * ( 1 / tES) * psevLI -> H_IS_LI_T + incHS",
@@ -444,9 +444,9 @@ build_transitions <- function(SA){
       "H_IS_LI_T -> H_IS_LI_T * (1 - pESL) * ( 1 / tIS) -> H_S_HI_T",
       "H_IS_LI_T -> H_IS_LI_T * pESL * ( 1 / tIS) -> ESL",
       # HI
-      "H_E_HI -> H_E_HI * ( 1 / tE) * (1 - psympPHI) -> H_EA_HI",
-      "H_EA_HI -> H_EA_HI * ( 1 / tEA) -> H_IA_HI + incHA",
-      "H_IA_HI -> H_IA_HI * ( 1 / tIA) -> H_S_HI",
+      if(gdata["psympPHI"] < 1) "H_E_HI -> H_E_HI * ( 1 / tE) * (1 - psympPHI) -> H_EA_HI",
+      if(gdata["psympPHI"] < 1) "H_EA_HI -> H_EA_HI * ( 1 / tEA) -> H_IA_HI + incHA",
+      if(gdata["psympPHI"] < 1) "H_IA_HI -> H_IA_HI * ( 1 / tIA) -> H_S_HI",
       "H_E_HI -> H_E_HI * ( 1 / tE) * psympPHI -> H_ES_HI",
       "H_ES_HI -> H_ES_HI * ( 1 / tES) * (1 - psevHI) -> H_IM_HI + incHM",
       "H_ES_HI -> H_ES_HI * ( 1 / tES) * psevHI -> H_IS_HI + incHS",
@@ -455,9 +455,9 @@ build_transitions <- function(SA){
       "H_IS_HI -> H_IS_HI * (1 - pESL) * ( 1 / tIS) -> H_S_HI",
       "H_IS_HI -> H_IS_HI * pESL * ( 1 / tIS) -> ESL",
       #
-      "H_E_HI_T -> H_E_HI_T * ( 1 / tE) * (1 - psympPHI) -> H_EA_HI_T",
-      "H_EA_HI_T -> H_EA_HI_T * ( 1 / tEA) -> H_IA_HI_T + incHA",
-      "H_IA_HI_T -> H_IA_HI_T * ( 1 / tIA) -> H_S_HI",
+      if(gdata["psympPHI"] < 1) "H_E_HI_T -> H_E_HI_T * ( 1 / tE) * (1 - psympPHI) -> H_EA_HI_T",
+      if(gdata["psympPHI"] < 1) "H_EA_HI_T -> H_EA_HI_T * ( 1 / tEA) -> H_IA_HI_T + incHA",
+      if(gdata["psympPHI"] < 1) "H_IA_HI_T -> H_IA_HI_T * ( 1 / tIA) -> H_S_HI",
       "H_E_HI_T -> H_E_HI_T * ( 1 / tE) * psympPHI -> H_ES_HI_T",
       "H_ES_HI_T -> H_ES_HI_T * ( 1 / tES) * (1 - psevHI) -> H_IM_HI_T + incHM",
       "H_ES_HI_T -> H_ES_HI_T * ( 1 / tES) * psevHI -> H_IS_HI_T + incHS",
@@ -683,7 +683,6 @@ build_transitions <- function(SA){
                          "PSA_IM_HI -> PSA_IM_HI * (1 - ptestPSAsymp) * ( 1 / tSA) -> PW_IM_HI",
                          "PSA_IS_HI -> PSA_IS_HI * (1 - ptestPSAsymp) *  ( 1 / tSA) -> PW_IS_HI",
                          ### Infection
-                         ## FIX ME: already tested can be tested positive while just infected
                          # no immunity
                          paste("PSA_S_NI -> ", PSAEMPTY,"? 0 : PSA_S_NI * ",lambdaPSA," -> PSA_E_NI + infP"),
                          # low immunity

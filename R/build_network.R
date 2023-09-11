@@ -19,8 +19,7 @@
 #' @importFrom fields image.plot
 #' @importFrom fields image.plot
 #' @importFrom stringr str_sub
-#'
-#' @usage build_network()
+#' @importFrom stats rmultinom
 #'
 #' @return A list of 9 elements: 1. ward_names, 2. pop_size_P, 3. pop_size_H, nVisits, 5. LS (length of stay), 6. Hplanning, 7. matContact, 8. IMMstate, 9. EPIstate
 #'
@@ -152,10 +151,14 @@ generate_network <- function(n_buildings,
   networks_list <- list()
   # build a erdos.renyi.game network for each building
   for(i in 1:n_buildings){
-    networks_list[[i]] <- erdos.renyi.game(n_wards[i], p = p[1], type = "gnp")
+    networks_list[[i]] <- erdos.renyi.game(n_wards[i],
+                                           p.or.m = p[1],
+                                           type = "gnp")
   }
   # build a erdos.renyi.game network for the whole hospital
-  networks_full <- erdos.renyi.game(sum(n_wards), p = p[2], type = "gnp")
+  networks_full <- erdos.renyi.game(sum(n_wards),
+                                    p.or.m = p[2],
+                                    type = "gnp")
   # create contact matrix
   M_full <- contact_matrix_generator(networks_full)
 

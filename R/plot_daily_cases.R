@@ -2,11 +2,10 @@
 #'
 #' @description The function \code{plot_daily_cases} returns FIX ME
 #'
-#' @usage plot_daily_cases()
-#'
 #' @param trajmwss List of data.table. Epidemiological trajectories simulated by the function \code{mwss::multisim}
 #'
 #' @import ggplot2
+#' @importFrom data.table melt
 #'
 #' @return Incidence plot.
 #'
@@ -26,12 +25,12 @@
 plot_daily_cases <- function(trajmwss) {
   # checks FIX Me
 
-  n_it <- seq(length(params$trajmwss))
+  n_it <- seq(length(trajmwss))
 
   # add iteration
   trajmwss <- lapply(n_it, function(sim) {
-    params$trajmwss[[sim]][, `:=`(iteration = sim)]
-    params$trajmwss[[sim]]
+    trajmwss[[sim]][, `:=`(iteration = sim)]
+    trajmwss[[sim]]
   })
 
   # group into unique data.table

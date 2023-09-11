@@ -131,8 +131,6 @@ startvec <- function(ward_names,
     stop("ward_names, pop_size_P, pop_size_H, nVisits and LS vectors must be of equal length.")
   }
 
-  # FIX ME: adapt to IMMstate and EPIstate
-
   if (!is.null(IMMstate)) {
     if (NA %in% match(IMMstate$pop, c("P", "H")))
       stop("IMMstate population column can only contains 'p' or 'h'")
@@ -318,7 +316,7 @@ startvec <- function(ward_names,
   ldata["nP", ] <- pop_size_P
   # Number of visit per patient per day
   ldata["nV", ] <- nVisits / pop_size_P
-  # Dayly turnover ## FIX ME >> discuss to be sure
+  # Daily turnover
   ldata["tLS", ] <- LS
 
   if (is.null(matContact)){

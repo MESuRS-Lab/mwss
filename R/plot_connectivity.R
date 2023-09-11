@@ -3,11 +3,6 @@
 #' @description The function \code{plot_connectivity} build an igraph object representing the wards connected by the professionals activities.
 #' The function also generate a generic png plot.
 #'
-#' @usage plot_connectivity(
-#'         matContact, size,
-#'         vertexcexrate = 3, edgewidthrate = 5,
-#'         netobj = FALSE, verbose = TRUE)
-#'
 #' @param matContact Square matrix reporting the average proportion of time spent by professionals of a given ward in the different wards. Sum of rows must be equal to 1. The line width scale for edges will depend on this argument.
 #' @param size Vector of population size in each ward (beds, HCWS or sum of both). The size of the nodes/vertex/wards will depend on this argument.
 #' @param vertexcexrate Integer, proportional coefficient to adjust vertex names size.

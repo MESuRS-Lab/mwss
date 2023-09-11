@@ -5,9 +5,14 @@
 \title{Plot the network based on matrix of contact}
 \usage{
 plot_connectivity(
-        matContact, size,
-        vertexcexrate = 3, edgewidthrate = 5,
-        netobj = FALSE, verbose = TRUE)
+  matContact,
+  size,
+  vertexcexrate = 3,
+  vertexcol = "grey",
+  edgewidthrate = 5,
+  netobj = FALSE,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{matContact}{Square matrix reporting the average proportion of time spent by professionals of a given ward in the different wards. Sum of rows must be equal to 1. The line width scale for edges will depend on this argument.}

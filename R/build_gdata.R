@@ -8,27 +8,6 @@
 #'
 #' Then the functions formats all global parameters required for the transitions as a named list readable by SimInf package.
 #'
-#' @usage build_gdata(
-#'   n_ctcH_PSA = 2, t_ctcH_PSA = 10 / 60 / 24, n_ctcP_PSA = 0, t_ctcP_PSA = 5 / 60 / 24,
-#'   n_ctcH_PW = 4, t_ctcH_PW = 15 / 60 / 24, n_ctcP_PW = 4, t_ctcP_PW = 30 / 60 / 24,
-#'   n_ctcH_H = 5, t_ctcH_H = 3 / 60 / 24, t_ctcV_PW = 20 / 60 / 24,
-#'   I = 185 / 100000, d = 10, R0 = 13, tw = 35,
-#'   tSA  = 2 / 24, tIC  = 15, tSL  = 14, tESL = 28, tE  = 5,
-#'   tEA = 2, tES = 2, tIA = 7, tIM = 8, tIS = 9, tLI = 60, tHI = 150,
-#'   epsPPSA = 0.1, epsHPSA = 0.1, epsHPW = 0.1, epsPPW = 0.1,
-#'   epsVPW = 0.1, epsPHSA = 0.1, epsPHW = 0.1, epsHHW = 0.1,
-#'   ttestSA = 2 / 24, ttestPW = 2 / 24, ttestHW = 2 / 24, ttestsymp = 2 / 24,
-#'   tbtwtestP = 14, tbtwtestH = 30, tbeftestPsymp = 2 / 24, tbeftestHsymp = 1,
-#'   psympNI = 0.5, psympLI = 0.2, psympHI = 0.1, psevNI = 0.5, psevLI = 0.3, psevHI = 0.1,
-#'   pISO = TRUE, pSL = 0.3, pESL = 1, pSLT = 0.01, pIC = 0.3, pdieIC = 0.005,
-#'   pLI = 0.20, pHI = 0.5, hNI2LI = 1 / 30, hLI2HI = 1 / 60, rinfLI = 0.7, rinfHI = 0.5,
-#'   rsymp = 1, rsev = 1,
-#'   ptestPSAsymp = 1, ptestPSANI = .75, ptestPSALI = 0.50, ptestPSAHI = 0.1,
-#'   ptestPWsymp = 0.95, ptestPWNI = 0.75, ptestPWLI = 0.50, ptestPWHI = 0.10,
-#'   ptestHsymp = 0.85, ptestHNI = 0.75, ptestHLI = 0.50, ptestHHI = 0.20,
-#'   senSA = 0.85, speSA = 0.95, senW = 0.85, speW = 0.95,
-#'   senH = 0.85, speH = 0.95, sensymp = 0.85, spesymp = 0.95)
-#'
 #' @importFrom magrittr %>%
 #'
 #' @param disease string. only Covid and Influenza are available
@@ -243,9 +222,9 @@ build_gdata <- function(
   # daily probability to become fully immune
 
   rinfLI = NULL,
-  # partial immunity efficiency % FIX ME better explain that this is the ratio of reduction of probability to be infected compared to non immune
+  # partial immunity efficiency
   rinfHI = NULL,
-  # partial immunity efficiency % FIX ME better explain that this is the ratio of reduction of probability to be infected compared to non immune
+  # partial immunity efficiency
 
   rsymp = NULL,
   # Ratio adjusting probability of symptoms for patients compared to general population (professionals)
@@ -419,9 +398,9 @@ build_gdata <- function(
   # daily probability to become fully immune
 
   if(is.null(rinfLI)) rinfLI = 0.7
-  # partial immunity efficiency % FIX ME better explain that this is the ratio of reduction of probability to be infected compared to non immune
+  # partial immunity efficiency
   if(is.null(rinfHI)) rinfHI = 0.5
-  # partial immunity efficiency % FIX ME better explain that this is the ratio of reduction of probability to be infected compared to non immune
+  # partial immunity efficiency
 
   if(is.null(rsymp)) rsymp = 1
   # Ratio adjusting probability of symptoms for patients compared to general population (professionals)
@@ -554,11 +533,11 @@ build_gdata <- function(
     if(is.null(tbeftestHsymp)) tbeftestHsymp = 1
     # duration before test of symp HCWS
 
-    if(is.null(psympNI)) psympNI = 0.9
+    if(is.null(psympNI)) psympNI = 1 # 0.9
     # probability to be symptomatic when non immune
-    if(is.null(psympLI)) psympLI = 0.8
+    if(is.null(psympLI)) psympLI = 1 # 0.8
     # probability to be symptomatic when partially immune
-    if(is.null(psympHI)) psympHI = 0.7
+    if(is.null(psympHI)) psympHI = 1 # 0.7
     # probability to be symptomatic when fully immune
 
     if(is.null(psevNI)) psevNI = 0.6
@@ -594,9 +573,9 @@ build_gdata <- function(
     # daily probability to become fully immune
 
     if(is.null(rinfLI)) rinfLI = 0.7
-    # partial immunity efficiency % FIX ME better explain that this is the ratio of reduction of probability to be infected compared to non immune
+    # partial immunity efficiency
     if(is.null(rinfHI)) rinfHI = 0.5
-    # partial immunity efficiency % FIX ME better explain that this is the ratio of reduction of probability to be infected compared to non immune
+    # partial immunity efficiency
 
     if(is.null(rsymp)) rsymp = 1
     # Ratio adjusting probability of symptoms for patients compared to general population (professionals)
@@ -677,11 +656,28 @@ build_gdata <- function(
       ))
 
   # Epidemiological stages durations
-  sapply(c(tE, tEA, tES, tIA, tIM, tIS, tLI, tHI), function(x)
-    if (x <= 0)
-      stop(
-        "Epidemiological stages and immunity durations must be positive numbers."
-      ))
+
+  if((psympNI +  psympLI + psympHI) < 3){
+    sapply(c(tE, tEA, tES, tIA, tIM, tIS, tLI, tHI), function(x)
+      if (x <= 0)
+        stop(
+          "Epidemiological stages and immunity durations must be strictly positive numbers."
+        ))
+
+  } else {
+
+    sapply(c(tEA, tIA), function(x)
+      if (x != 0)
+        stop(
+          "With probabilities to be symptomatic equal to zero, asymptomatic epidemiological stages durations must be zero."
+        ))
+
+    sapply(c(tE, tES, tIM, tIS, tLI, tHI), function(x)
+      if (x <= 0)
+        stop(
+          "Epidemiological stages and immunity durations must be positive numbers."
+        ))
+  }
 
     if (d <= 0)
       stop(
@@ -992,9 +988,9 @@ build_gdata <- function(
     # daily probability to become fully immune
 
     rinfLI = rinfLI,
-    # partial immunity efficiency % FIX ME better explain that this is the ratio of reduction of probability to be infected compared to non immune
+    # partial immunity efficiency
     rinfHI = rinfHI,
-    # partial immunity efficiency % FIX ME better explain that this is the ratio of reduction of probability to be infected compared to non immune
+    # partial immunity efficiency
 
     rEA = rEA,
     # Ratio  of excretion for individuals in epidemiological stage EA (exposed - contagious pre-asymptomatic)

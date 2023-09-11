@@ -4,7 +4,18 @@
 \alias{build_network}
 \title{Creates a synthetic hospital ward network}
 \usage{
-build_network()
+build_network(
+  n_buildings = 5,
+  n_wards = c(3, 4, 5, 8, 9),
+  total_patients = 500,
+  total_HCW = 900,
+  minLS = 14,
+  maxLS = 28,
+  within_clust_lev = 0.8,
+  between_clust_lev = 0.1,
+  clust_ratio_inout = 0.8,
+  silent = F
+)
 }
 \arguments{
 \item{n_buildings}{integer. number of buildings (="clusters")}

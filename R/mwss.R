@@ -79,7 +79,7 @@ mwss <- function(ward_names,
 
   pts_fun <- build_pts_fun(u0, SA, v0, gdata)
 
-  transitions <- build_transitions(SA)
+  transitions <- build_transitions(SA, gdata)
 
   compartments <- colnames(u0)
 
